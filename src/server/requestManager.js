@@ -9,6 +9,14 @@ const requestManager = (request, response) => {
             return (response.end(data));
         });
     }
+    if (request.url === "/crop") {
+        console.log("   Handling the request as the cropping page")
+        return fs.readFile('src/crop.html', (err, data) => {
+            if (err) throw err;
+            response.writeHead(200, {'Content-Type': 'text/html'});
+            return (response.end(data));
+        });
+    }
     if (request.url.endsWith('.js')) {
         console.log("   Handling the request as a JS Script");
         return fs.readFile(`.${request.url}`, (err, data) => {

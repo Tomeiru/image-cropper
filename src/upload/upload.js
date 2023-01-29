@@ -1,11 +1,16 @@
 const reader = new FileReader();
 let fileInput = document.getElementById("file-input");
-let button = document.getElementById("browse-files-button");
+let browseButton = document.getElementById("browse-files-button");
+let submitButton = document.getElementById("submit-file-button");
 let preview = document.getElementById("image-preview");
+let imageData = null
 
+localStorage.removeItem("imageData");
 reader.addEventListener("load", () => {
     preview.src = reader.result;
+    imageData = reader.result;
     preview.style.display = "block";
+    submitButton.style.display = "block"
 });
 
 document.addEventListener('drop', (event) => {
@@ -27,9 +32,16 @@ fileInput.addEventListener("click", () => {
     });
 });
 
-button.addEventListener("click", () => {
+browseButton.addEventListener("click", () => {
     fileInput.click();
 });
+
+submitButton.addEventListener("click", () => {
+    if (imageData === null)
+        return;
+    localStorage.setItem("imageData", imageData);
+    location.href = "http://localhost:8080/crop"
+})
 
 function changePreviewFromFile(file) {
     if (file)
