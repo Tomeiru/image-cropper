@@ -3,7 +3,7 @@ const requestManager = (request, response) => {
     console.log(`[Request Manager] Request received for ${request.url}`)
     if (request.url === "/") {
         console.log("   Handling the request as the main page");
-        return fs.readFile('src/index.html', (err, data) => {
+        return fs.readFile('src/upload/upload.html', (err, data) => {
             if (err) throw err;
             response.writeHead(200, {'Content-Type': 'text/html'});
             return (response.end(data));
@@ -11,7 +11,7 @@ const requestManager = (request, response) => {
     }
     if (request.url === "/crop") {
         console.log("   Handling the request as the cropping page")
-        return fs.readFile('src/crop.html', (err, data) => {
+        return fs.readFile('src/crop/crop.html', (err, data) => {
             if (err) throw err;
             response.writeHead(200, {'Content-Type': 'text/html'});
             return (response.end(data));
